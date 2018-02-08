@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block title %}Concatena{% endblock %}
+{% block body %}
+    <h2>Concatena </h2>
+    <form method="post" action="{{ path('app_do_concat')}}">
+        <input type="text" name="fr1"/><br>
+        <input type="text" name="fr2"/><br><br>
+        <input type="submit" value="CONCATENA"/><br>
+    </form>
+{% endblock %}

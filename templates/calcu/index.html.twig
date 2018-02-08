@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{% block title %}Calculadora{% endblock %}
+{% block body %}
+    <h1>Calculdora</h1>
+    <a href="{{ path('app_sum') }}" name="suma">SUMA</a><br>
+    <a href="{{ path('app_resta') }}" name="resta">RESTA</a><br>
+    <a href="{{ path('app_multiplica') }}" name="multi">MULTIPLICACIÓN</a><br>
+    <a href="{{ path('app_divide') }}" name="divide">DIVIDE</a><br>
+{% endblock %}

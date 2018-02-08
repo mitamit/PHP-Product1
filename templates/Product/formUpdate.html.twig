@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block title %}Formulario actualiza Product{% endblock %}
+{% block body %}
+    <h1>Actualiza Producto</h1>
+
+    <form method="post" action="{{ path('app_do_update') }}">
+
+        <input type="hidden" name="id" value="{{ prod.id }}">
+        Nuevo Nombre <input type="text" name="name" value="{{ prod.name }}"/><br><br>
+        Nuevo Precio<input type="text" name="price" value="{{ prod.price }}"/><br><br>
+        Nueva Descripción<input type="text" name="descrip" value="{{ prod.description }}"/><br><br>
+        <input type="submit" value="Actualiza"/>
+        <input type="reset" value="Clean">
+    </form><br><br>
+    <a href="{{ path('app_listar') }}" name="volver">ATRÁS</a>
+
+{% endblock %}

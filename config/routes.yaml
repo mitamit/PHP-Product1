@@ -1,0 +1,91 @@
+#index:
+#    path: /
+#    defaults: { _controller: 'App\Controller\DefaultController::index' }
+app_lucky_number:
+    path: /lucky/number
+    controller: App\Controller\LuckyController::number
+
+
+
+
+app:
+  path: /
+  controller: App\Controller\ProductController::index
+
+app_crear:
+  path: /Product/nuevo
+  controller: App\Controller\ProductController::newProduct
+
+app_do_crear:
+  path: /Product/doNuevo
+  controller: App\Controller\ProductController::newDoProduct
+
+app_listar:
+  path: /Product/lista
+  controller: App\Controller\ProductController::showProducts
+
+
+
+app_update:
+  path: /Product/update/{id}
+  controller: App\Controller\ProductController::updateProduct
+
+app_do_update:
+  path: /Product/doupdate
+  controller: App\Controller\ProductController::doUpdate
+
+app_remove:
+  path: /Product/remove/{id}
+  controller: App\Controller\ProductController::doRemove
+
+#concatena
+#app:
+ #   path: /
+  #  controller: App\Controller\ConcatController::concat
+
+#app_do_concat:
+ #   path: /Concat/Result-Concat
+  #  controller: App\Controller\ConcatController::doConcat
+
+#pagina Calculadora, indice para elegir la operación
+##app:
+##  path: /
+## controller: App\Controller\CalculadController::index
+
+#suma
+app_sum:
+    path: /calcu/sum-form
+    controller: App\Controller\CalculadController::sum
+
+app_resultado_sum:
+    path: /calcu/sum-resultado
+    controller: App\Controller\CalculadController::doSum
+
+
+#resta
+app_resta:
+    path: /calcu/res-form
+    controller: App\Controller\CalculadController::resta
+
+app_resultado_res:
+    path: /calcu/rest-resultado
+    controller: App\Controller\CalculadController::doResta
+
+
+#multiplica
+app_multiplica:
+    path: /calcu/mult-form
+    controller: App\Controller\CalculadController::multiplica
+
+app_resultado_mult:
+    path: /calcu/mult-resultado
+    controller: App\Controller\CalculadController:doMultip
+
+#divide
+app_divide:
+    path: /calcu/div-form
+    controller: App\Controller\CalculadController:Divide
+
+app_resultado_divide:
+    path: /calcu/div-resultado
+    controller: App\Controller\CalculadController:doDivide

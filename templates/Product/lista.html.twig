@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block title %}Formulario lista Product{% endblock %}
+{% block body %}
+    <h2>Lista de Productos</h2>
+    <ul>
+    {% for product in products %}
+        <li>{{ product.name ~ ' -- ' ~ product.price ~ ' -- ' ~ product.description }}
+            <a href="{{ path('app_update', {'id': product.id}) }}" name="actualizar">Actualiza</a>
+            <a href="{{ path('app_remove', {'id':product.id}) }}" name="borrar">Quitar de la lista</a></li>
+        {% endfor %}
+        <br><bt></bt>
+        <a href="{{ path('app') }}" name="volver">ATRÁS</a>
+        </ul>
+{% endblock %}

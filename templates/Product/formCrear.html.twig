@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block title %}Formulario Crea Product{% endblock %}
+{% block body %}
+    <h1>New Product</h1>
+    <form method="post" action="{{ action }}">
+       Nombre <input type="text" name="name"/><br><br>
+        Precio<input type="text" name="price"/><br><br>
+        Descripción<input type="text" name="descrip"/><br><br>
+        <input type="submit" value="Añadir a la Lista"/>
+        <input type="reset" value="Clean">
+    </form><br><br>
+        <a href="{{ path('app') }}" name="volver">ATRÁS</a>
+
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{% block title %}Productos{% endblock %}
+{% block body %}
+    <h1>Productos</h1>
+
+    <a href="{{ path('app_crear') }}" name="nuevo">Nuevo Producto</a><br>
+    <a href="{{ path('app_listar') }}" name="listar">Lista de Productos</a>
+
+{% endblock %}
