@@ -17,19 +17,9 @@ class Product
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=200)
-     */
-    private $name;
-
-    /**
-     * @ORM\Column(type="decimal", scale=2, nullable=true)
-     */
-    private $price;
-
-    /**
      * @ORM\Column(type="text")
      */
-    private $description;
+    private $name;
 
     /**
      * @return mixed
@@ -39,6 +29,29 @@ class Product
         return $this->id;
     }
 
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id=$id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description)
+    {
+        $this->description=$description;
+    }
 
     /**
      * @return mixed
@@ -75,19 +88,31 @@ class Product
     /**
      * @return mixed
      */
-    public function getDescription()
+    public function getTalla()
     {
-        return $this->description;
+        return $this->talla;
     }
 
     /**
-     * @param mixed $description
+     * @param mixed $talla
      */
-    public function setDescription($description)
+    public function setTalla($talla)
     {
-        $this->description=$description;
+        $this->talla=$talla;
     }
 
+    /**
+     * @ORM\Column(type="decimal", scale=2, nullable=true)
+     */
+    private $price;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $description;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $talla;
 }

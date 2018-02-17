@@ -8,35 +8,8 @@ app_lucky_number:
 
 
 
-app:
-  path: /
-  controller: App\Controller\ProductController::index
-
-app_crear:
-  path: /Product/nuevo
-  controller: App\Controller\ProductController::newProduct
-
-app_do_crear:
-  path: /Product/doNuevo
-  controller: App\Controller\ProductController::newDoProduct
-
-app_listar:
-  path: /Product/lista
-  controller: App\Controller\ProductController::showProducts
 
 
-
-app_update:
-  path: /Product/update/{id}
-  controller: App\Controller\ProductController::updateProduct
-
-app_do_update:
-  path: /Product/doupdate
-  controller: App\Controller\ProductController::doUpdate
-
-app_remove:
-  path: /Product/remove/{id}
-  controller: App\Controller\ProductController::doRemove
 
 #concatena
 #app:
@@ -46,6 +19,43 @@ app_remove:
 #app_do_concat:
  #   path: /Concat/Result-Concat
   #  controller: App\Controller\ConcatController::doConcat
+
+
+
+#PRODUCTO-------------------------------------------------------------------------------
+
+app:
+  path: /
+  controller: App\Controller\ProductController::index
+
+app_crear:
+  path: /Product/crear
+  controller: App\Controller\ProductController::actionCrear
+
+app_do_crear:
+  path: /Product/nuevo
+  controller: App\Controller\ProductController::actionDoCrear
+
+app_listar:
+  path: /Product/lista
+  controller: App\Controller\ProductController::actionListar
+
+app_actualiza:
+  path: /Product/formActualiz/{id}
+  controller: App\Controller\ProductController::actionActualiza
+
+app_do_actualiza:
+  path: /Product/actualiza/{id}
+  controller: App\Controller\ProductController::doActionActualiza
+
+app_remove:
+  path: /Product/remove/{id}
+  controller: App\Controller\ProductController::actionRemove
+
+
+
+
+#CALCULADORA----------------------------------------------------------
 
 #pagina Calculadora, indice para elegir la operación
 ##app:

@@ -1,17 +1,27 @@
 {% extends 'base.html.twig' %}
-{% block title %}Formulario actualiza Product{% endblock %}
+{% block title %}updateProducto{% endblock %}
 {% block body %}
-    <h1>Actualiza Producto</h1>
+    <h2>Actualiza Producto</h2>
+    <div>
 
-    <form method="post" action="{{ path('app_do_update') }}">
+    <form method="post" action="{{ action }}" novalidate="novalidate">
+        <div>
+            <!--  {{ dump(form.vars.value) }} muetra todos los campos del form -->
+        </div>
+        <ul>
+            {% for error in form.vars.errors %}
+                <li>{{ error.message }}</li>
+            {% endfor %}
+        </ul>
+        <input type="hidden" value="id" name="id">
+        <div>{{ form_label(form.name) }}:{{ form_widget(form.name) }}</div>
+        <div>{{ form_label(form.price) }}:{{ form_widget(form.price) }}</div>
+        <div>{{ form_label(form.description) }}:{{ form_widget(form.description) }}</div>
+        <div>{{ form_label(form.talla) }}:{{ form_widget(form.talla) }}</div>
 
-        <input type="hidden" name="id" value="{{ prod.id }}">
-        Nuevo Nombre <input type="text" name="name" value="{{ prod.name }}"/><br><br>
-        Nuevo Precio<input type="text" name="price" value="{{ prod.price }}"/><br><br>
-        Nueva Descripción<input type="text" name="descrip" value="{{ prod.description }}"/><br><br>
-        <input type="submit" value="Actualiza"/>
-        <input type="reset" value="Clean">
-    </form><br><br>
-    <a href="{{ path('app_listar') }}" name="volver">ATRÁS</a>
+        <div><input type="submit" value="ok"></div>
+    </form>
+    <a href="{{ path('app') }}" name="volver">Volver al Menú</a>
+    </div>
 
 {% endblock %}

@@ -1,14 +1,27 @@
 {% extends 'base.html.twig' %}
-{% block title %}Formulario lista Product{% endblock %}
-{% block body %}
-    <h2>Lista de Productos</h2>
-    <ul>
-    {% for product in products %}
-        <li>{{ product.name ~ ' -- ' ~ product.price ~ ' -- ' ~ product.description }}
-            <a href="{{ path('app_update', {'id': product.id}) }}" name="actualizar">Actualiza</a>
-            <a href="{{ path('app_remove', {'id':product.id}) }}" name="borrar">Quitar de la lista</a></li>
-        {% endfor %}
-        <br><bt></bt>
-        <a href="{{ path('app') }}" name="volver">ATRÁS</a>
-        </ul>
+{% block title %}lista{% endblock %}
+{% block stylesheets %}
+    <style>
+        table td{background-color: #18324f; color: white; border: #222222 solid 2px}
+        h2{color: orangered;}
+        a{text-decoration: none; color: orange;}
+    </style>
+{% endblock %}
+    {% block body %}
+    <h2>Productos</h2>
+    <table>
+
+            {% for product in products %}
+                <tr>
+                    <td>{{ product.id }}</td><td>{{ product.name }}</td><td>{{ product.price }}</td>
+                    <td>{{ product.description }}</td><td>{{ product.talla }}</td>
+                    <td><a href="{{ path('app_actualiza', {'id':product.id})}}" name="actualizar">Actualizar</a></td>
+                    <td><a href="{{ path('app_remove', {'id':product.id}) }}" name="borrar">Eliminar</a></td>
+                </tr>
+            {% endfor %}
+
+    </table>
+    <br><br>
+        <a href="{{ path('app') }}" name="volver">Volver</a>
+
 {% endblock %}

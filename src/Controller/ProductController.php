@@ -2,104 +2,125 @@
 
 namespace App\Controller;
 
+use App\Form\ProductType;
+use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Console\Tests\Input\StringInputTest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Entity\Product;
-
 
 class ProductController extends Controller
 {
-   public function index(){
-       return $this->render('Product/index.html.twig');
-   }
+    /**
+     * @Route("/product", name="product")
+     */
+    public function index()
+    {
+        // replace this line with your own code!
+        return $this->render('Product/index.html.twig');
+    }
 
-   public function newProduct(){
-       $action = $this->generateUrl('app_do_crear');
-       return $this->render('Product/formCrear.html.twig', ['action' => $action]);
-   }
+    public function actionCrear()
+    {
+        $action =  $this->generateUrl('app_do_crear');
+        $product = new Product();
+        $form = $this->createForm(ProductType::class, $product);
+        return $this->render('Product/formCrear.html.twig',
+            [
+                'form'      => $form->createView(),
+                'action'    => $action
 
-   public function newDoProduct(Request $request){
+            ]
+        );
+
+    }
+    public function actionDoCrear(Request $request)
+    {
+        $product = new Product();
+        $form = $this->createForm(ProductType::class, $product);
+
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $m = $this->getDoctrine()->getManager();
+            $m->persist($product);
+            $m->flush();
+
+            return $this->redirectToRoute('app');
+        }
+
+        return $this->render('Product/formCrear.html.twig',
+            [
+                'form'      => $form->createView(),
+                'action'    => $this->generateUrl('app_do_crear')
+            ]
+        );
+    }
+    public function actionListar(EntityManagerInterface $em)
+    {
+        //$em = $this->getDoctrine()->getManager(); es lo mismo que entitymanagerInterface $em
+        $productRepo = $em->getRepository(Product::class);
+        $products = $productRepo->findAll();
+        return $this->render('Product/lista.html.twig', ['products'=> $products]);
+
+    }
+    public function actionActualiza($id)
+    {
 
        $em = $this->getDoctrine()->getManager();
-        $newProduct = new Product();
-        $newProduct->setName($request->request->get('name'));
-        $newProduct->setPrice($request->request->get('price'));
-        $newProduct->setDescription($request->request->get('descrip'));
+       $ProdcutRepo = $em->getRepository(Product::class);
+       $prod = $ProdcutRepo->find($id);
 
-        $em->persist($newProduct);
-        $em->flush();
+       $form = $this->createForm(ProductType::class, $prod);
 
-        return $this->render('Product/doCrear.html.twig', ['prod' => $newProduct->getId()]);
-
-
-   }
-    public function showProducts(EntityManagerInterface $em){
-        $productRepo = $em->getRepository('App:Product');
-        $products = $productRepo->findAll();
-        return $this->render('Product/lista.html.twig', ['products' => $products]);
+       return $this->render('Product/formUpdate.html.twig',
+           [
+               'action' => $this->generateUrl('app_do_actualiza', ['id'=> $id]),
+                'form' => $form->createView()
+           ]);
     }
 
     /**
-     *
-     *
-     * @return Response
-     *
-     */
-    public function updateProduct($id){
-
-        $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository('App:Product');
-        $prod = $repository->find($id);
-        return $this->render('Product/formUpdate.html.twig', ['prod'=> $prod]);
-    }
-
-    /**
-     * @param EntityManagerInterface $em
+     * @param $id
      * @param Request $request
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @return StringInputTest
      */
-    public function doUpdate(Request $request){
+    public function doActionActualiza($id, Request $request)
+    {
         $em = $this->getDoctrine()->getManager();
+        $productRepo = $em->getRepository(Product::class);
+        $product = $productRepo->find($id);
+        $form = $this->createForm(ProductType::class, $product);
 
-        $productRepo = $em->getRepository('App:Product');
+        //despues de crear un form le pasamos los datos apartir de $product, los datos del id de $product
+        $form->handleRequest($request);
+
+        //si el formulario es valido:
+        if($form->isValid()){
+            $em->flush();
+            return $this->redirectToRoute('app_listar');
+        }
+        return $this->render('Product/formUpdate.html.twig',
+            [
+                'action'    => $this->generateUrl('app_do_actualiza', ['id'=> $id]),
+                'form'      => $form->createView()
+            ]
+        );
 
 
-        $id = $request->request->get('id');
-        $name = $request->request->get('name');
-        $price = $request->request->get('price');
-        $desc = $request->request->get('descrip');
 
+    }
+    public function actionRemove($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $productRepo = $em->getRepository(Product::class);
         $product = $productRepo->find($id);
 
-        $product->setName($name);
-        $product->setprice($price);
-        $product->setDescription($desc);
-
-        $em->flush();
-
-        return $this->redirectToRoute('app_listar');
-
-    }
-
-
-    public function doRemove($id){
-        $em = $this->getDoctrine()->getManager();
-
-        $productRepo = $em->getRepository('App:Product');
-
-       $product = $productRepo->find($id);
-
         $em->remove($product);
-
         $em->flush();
 
         return $this->redirectToRoute('app_listar');
-
-
     }
-
-
 }
